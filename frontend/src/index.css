@@ -1,0 +1,31 @@
+
+
+main {
+  min-height: 80vh
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
+
+svg.icon {
+  margin-bottom: 0.2em;
+}
+
+/* Bootstrap */
+
+a {
+  text-decoration: none !important;
+}
+
+.list-group {
+  --bs-list-group-border-width: 0px !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
