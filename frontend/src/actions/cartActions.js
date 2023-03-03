@@ -3,6 +3,7 @@ import {
     CART_ADD_ITEM,
     CART_REMOVE_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
+    CART_SAVE_PAYMENT_METHOD,
 } from '../constants/cartConstants';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -48,4 +49,14 @@ export const saveShippingAddress = (data) => async (dispatch) => {
 
     // cannot store raw JSON in LS, so stringify
     localStorage.setItem('shippingAddress', JSON.stringify(data));
+};
+
+export const savePaymentMethod = (data) => async (dispatch) => {
+    dispatch({
+        type: CART_SAVE_PAYMENT_METHOD,
+        payload: data,
+    });
+
+    // cannot store raw JSON in LS, so stringify
+    localStorage.setItem('paymentMethod', JSON.stringify(data));
 };
