@@ -4,13 +4,16 @@ import {
     addOrderItems,
     getOrderById,
     updateOrderToPaid,
+    getMyOrders,
+    getOrders,
 } from '../controllers/orderController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 // server.js has app.use("/api/order", userRoutes);
 // so here, '/' points to ^
 
-router.route('/').post(protect, addOrderItems);
+router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders);
+router.route('/myorders').get(protect, getMyOrders);
 router.route('/:id').get(protect, getOrderById);
 router.route('/:id/pay').put(protect, updateOrderToPaid);
 

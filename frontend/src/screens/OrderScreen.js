@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { PayPalButtons } from '@paypal/react-paypal-js';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -12,8 +14,13 @@ const OrderScreen = () => {
 
     const orderId = params.id;
 
+    // const [sdkReady, setSdkReady] = useState(false);
+
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
+
+    // const orderPay = useSelector((state) => state.orderDetails);
+    // const { loading: loadingPay, success: successPay } = orderDetails;
 
     if (!loading) {
         const addDecimals = (num) => {
@@ -29,6 +36,32 @@ const OrderScreen = () => {
     }
 
     useEffect(() => {
+        // const addPayPalScript = async () => {
+        //     const { data: clientId } = await axios.get('/api/config/paypal');
+        //     const script = document.createElement('script');
+        //     script.type = 'text/javascript';
+        //     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+        //     script.async = true;
+        //     script.onLoad = () => {
+        //         setSdkReady(true);
+        //     };
+        // dynamically add paypal script tag to body
+        // document.body.appendChild(script);
+        // if (!order || order._id !== orderId || successPay) {
+        //     dispatch(getOrderDetails(orderId));
+        // } else if (!order.isPaid) {
+        //     if (!window.paypal) {
+        //         addPayPalScript();
+        //     } else {
+        //         setSdkReady(true);
+        //     }
+        // }
+
+        // addPayPalScript();
+        // The above is deprecated.. add paypal with these resources:
+        //https://dev.to/paypaldeveloper/how-to-add-paypal-checkout-payments-to-your-react-app-53aa
+        //https://developer.paypal.com/sdk/js/configuration/
+
         if (!order || order._id !== orderId) {
             dispatch(getOrderDetails(orderId));
         }
@@ -150,6 +183,16 @@ const OrderScreen = () => {
                                     <Col>${order.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
+                            {/* {!order.isPaid && (
+                                <ListGroup.Item>
+                                    {loadingPay && <Loader />}
+                                    {!sdkReady ? (
+                                        <Loader />
+                                    ) : (
+                    
+                                    )}
+                                </ListGroup.Item>
+                            )} */}
                         </ListGroup>
                     </Card>
                 </Col>
